@@ -26,10 +26,10 @@
 //方法一：暴力法--遍历所有子串返回最大值
 var lengthOfLongestSubstring = function(s) {
     if (s.length < 2) return s.length;
-    let max = 0;
-    for (let i = 0; i < s.length; i++) {
-        let tmpStr = s[i]
-        for (let j = i + 1; j < s.length; j++) {
+    var max = 0;
+    for (var i = 0; i < s.length; i++) {
+        var tmpStr = s[i]
+        for (var j = i + 1; j < s.length; j++) {
             if (!tmpStr.includes(s[j])) tmpStr += s[j]
             else {
                 break;

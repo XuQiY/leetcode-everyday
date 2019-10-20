@@ -6,6 +6,7 @@
 // 输出：["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
 
 var letterCombinations = function(digits) {
+    if (!digits) return []
     let letters = [
         ['a', 'b', 'c'],
         ['d', 'e', 'f'],
