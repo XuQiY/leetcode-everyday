@@ -1,0 +1,66 @@
+{
+  "reference": {
+    "transaction": "471570623412761067",
+    "order": "471570623412761067"
+  },
+  "redirect": {
+    "url": "http://apitest2.zeinapp.net/web/web_pays/tap_pay_return_url.json?cashOrderId=471570623412761067"
+  },
+  "amount": 63.27,
+  "post": {
+    "url": "http://apitest2.zeinapp.net/web/web_pays/tap_pay_post_url.json"
+  },
+  "threeDSecure": true,
+  "merchant": { "id": "3191228" },
+  "currency": "EGP",
+  "receipt": { "sms": false, "email": false },
+  "source": { "id": "src_card" },
+  "customer": {
+    "phone": { "country_code": "965", "number": "50000000" },
+    "first_name": "刘志明_80962",
+    "email": "test@test.com"
+  }
+},
+{
+  "redirect": {
+    "url": "http://apitest2.zeinapp.net/web/web_pays/tap_pay_return_url.json?cashOrderId=471570623412761067",
+    "status": "PENDING"
+  },
+  "amount": 63.27,
+  "save_card": false,
+  "method": "CREATE",
+  "threeDSecure": true,
+  "merchant": { "id": "3191228" },
+  "card_threeDSecure": false,
+  "source": { "id": "src_card", "object": "source" },
+  "api_version": "V2",
+  "reference": {
+    "transaction": "471570623412761067",
+    "order": "471570623412761067"
+  },
+  "post": {
+    "url": "http://apitest2.zeinapp.net/web/web_pays/tap_pay_post_url.json",
+    "status": "PENDING"
+  },
+  "live_mode": false,
+  "response": { "code": "100", "message": "Initiated" },
+  "currency": "EGP",
+  "receipt": { "sms": false, "email": false },
+  "id": "chg_TS062520200954Yt1c2505800",
+  "transaction": {
+    "amount": 63.27,
+    "timezone": "UTC+03:00",
+    "created": "1590400465831",
+    "asynchronous": false,
+    "currency": "EGP",
+    "expiry": { "period": 30, "type": "MINUTE" },
+    "url": "https://checkout.payments.tap.company?mode=page&token=5ecb6b600ccf030790f025c6"
+  },
+  "object": "charge",
+  "status": "INITIATED",
+  "customer": {
+    "phone": { "country_code": "965", "number": "50000000" },
+    "first_name": "刘志明_80962",
+    "email": "test@test.com"
+  }
+})

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>N皇后问题自动化</title>
+  <style>
+    .body {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* .big-father {
+      display: grid;
+      grid-template-columns: 300px 300px 300px;
+      grid-template-rows: 300px 300px 300px;
+      grid-row-gap: 50px;
+      grid-column-gap: 20px;
+    } */
+
+    #father {
+      margin: 50px;
+      display: grid;
+      width: 500px;
+      height: 500px;
+    }
+
+    #father div {
+      border: 1px solid black;
+    }
+
+    .child {
+      border: 1px solid black;
+    }
+  </style>
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+</head>
+
+<body>
+  <input type="text" id="num">
+  <button id="btn">生成</button>
+  <button id="btn">解题</button>
+  <div id="father">
+  </div>
+
+  <script>
+    window.onload = function () {
+      let btn = document.getElementById('btn')
+      let num = document.getElementById('num')
+      let father = document.getElementById('father')
+
+      btn.onclick = () => {
+        //删除子节点
+        let removeLen = father.childNodes.length
+        // debugger
+        for (let j = removeLen - 1; j > 0; j--) {
+          father.removeChild(father.childNodes[j])
+        }
+
+        //添加新的节点
+        for (let i = 0; i < num.value * num.value; i++) {
+          let temp = document.createElement('div');
+          temp.setAttribute('data-index', 1)
+          father.appendChild(temp)
+        }
+        // father.style.display = 'grid'
+        let gridCss = `grid-template-columns: repeat(${num.value},${100/num.value}%)`
+        father.style.cssText =
+          `height:500px;width:500px; grid-template-columns: repeat(${num.value},${100/num.value}%);grid-template-rows:repeat(${num.value},${100/num.value}%);`
+        addClickEvent();
+      }
+
+
+
+
+      function random() {
+        return Math.random() * 255
+      }
+
+      function addClickEvent(params) {
+        father.removeEventListener('click', bg)
+        father.addEventListener('click', bg)
+      }
+
+      function bg(e) {
+        console.log(e.target.dataset.index)
+        if (e.target.dataset.index == 1) {
+          e.target.dataset.index = 0;
+          e.target.style.backgroundColor = `rgba(${random()},${random()},${random(),1})`
+        } else {
+          e.target.dataset.index = 1;
+          e.target.style.backgroundColor = '#ffffff'
+        }
+      }
+
+    }
+  </script>
+</body>
+
+</html>
