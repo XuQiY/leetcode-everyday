@@ -82,10 +82,10 @@ class Sort {
   // 快排
   quickSort(arr) {
     if (arr.length <= 1) return arr;
-    const mid = arr.splice(Math.floor(arr.length / 2), 1)[0];
+    const mid = arr[0]
     let left = [],
       right = [];
-    for (let i = 0; i < arr.length; i++) {
+    for (let i = 1; i < arr.length; i++) {
       if (arr[i] > mid) {
         right.push(arr[i]);
       } else {
@@ -97,42 +97,31 @@ class Sort {
 
   // 归并排序
   mergeSort(unsortedArray) {
-    // No need to sort the array if the array only has one element or empty
     if (unsortedArray.length <= 1) {
       return unsortedArray;
     }
-    // In order to divide the array in half, we need to figure out the middle
-    const middle = Math.floor(unsortedArray.length / 2);
 
-    // This is where we will be dividing the array into left and right
-    const left = unsortedArray.slice(0, middle);
-    const right = unsortedArray.slice(middle);
+    const mid = Math.floor(unsortedArray.length / 2);
 
-    // Using recursion to combine the left and right
+    const left = unsortedArray.slice(0, mid);
+    const right = unsortedArray.slice(mid);
+
     return this.merge(this.mergeSort(left), this.mergeSort(right));
   }
 
   merge(left, right) {
-    let resultArray = [],
-      leftIndex = 0,
-      rightIndex = 0;
+    let resultArray = [];
+    let i = 0,
+      j = 0;
 
-    // We will concatenate values into the resultArray in order
-    while (leftIndex < left.length && rightIndex < right.length) {
-      if (left[leftIndex] < right[rightIndex]) {
-        resultArray.push(left[leftIndex]);
-        leftIndex++; // move left array cursor
+    while (i < left.length && j < right.length) {
+      if (left[i] < right[j]) {
+        resultArray.push(left[i++]);
       } else {
-        resultArray.push(right[rightIndex]);
-        rightIndex++; // move right array cursor
+        resultArray.push(right[j++]);
       }
     }
-
-    // We need to concat here because there will be one element remaining
-    // from either left OR the right
-    return resultArray
-      .concat(left.slice(leftIndex))
-      .concat(right.slice(rightIndex));
+    return [...resultArray,...left.slice(i),...right.slice(j)]
   }
 
   // merge(arr: Array<number>, lo: number, mid: number, hi: number) {
@@ -186,5 +175,6 @@ const arr = new Sort(randomArr(6));
 // console.timeEnd('sort')
 // arr.reSet()
 // arr.shellSort();
-console.table(arr.mergeSort(arr.arr));
+// console.table(arr.mergeSort(arr.arr));
+console.table(arr.quickSort(arr.arr))
 // arr.show()

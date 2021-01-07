@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div{
+      width: 100%;
+      height: 100%;
+    }
+    .img-wrap{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    img{
+      width: 50vw;
+      height: auto;
+      margin: 100px 0;
+
+    }
+  </style>
+</head>
+<body>
+  <div class="img-wrap">
+    <img src="https://media.xiangshengclub.com/MTYwNjk4NTgxNTcyNyM2MjUjcG5n.png" data-src="http://img.vins.live/MTYwMzk3NzE4NTYyOCMgMTUjanBn.jpg" alt="">
+    <img src="https://media.xiangshengclub.com/MTYwNjk4NTgxNTcyNyM2MjUjcG5n.png" data-src="http://img.vins.live/MTYwNTcyNDQ1Nzg5NyM5OTAjanBn.jpg" alt="">
+    <img src="https://media.xiangshengclub.com/MTYwNjk4NTgxNTcyNyM2MjUjcG5n.png" data-src="http://img.vins.live/MTYwNjYwNzEwODA5MiM3MzgjanBn.jpg" alt="">
+    <img src="https://media.xiangshengclub.com/MTYwNjk4NTgxNTcyNyM2MjUjcG5n.png" data-src="http://img.vins.live/MTYwNDAwNTE4MDQzMyM2OTUjanBn.jpg" alt="">
+    <img src="https://media.xiangshengclub.com/MTYwNjk4NTgxNTcyNyM2MjUjcG5n.png" data-src="http://img.vins.live/MTYwNjk0ODQxMjE4OSM5MjMjanBn.jpg" alt="">
+  </div>
+  <script>
+    let imgs = document.images
+    let foreach = Array.prototype.forEach
+    let wrap = document.getElementsByTagName('html')[0]
+
+    function throttle(fn,deley){
+      var start = new Date()
+      return function(){
+        let last = new Date()
+        if(last-start>deley){
+          fn.apply(this,arguments)
+          start = last
+        }
+      }
+    }
+
+    function judgeContent(e){
+      foreach.call(imgs,(img)=>{
+        if(img.offsetTop<(window.innerHeight+wrap.scrollTop))
+        img.src = img.getAttribute('data-src')
+      })
+    }
+
+    judgeContent()
+    document.addEventListener('scroll',throttle(judgeContent,500))
+
+  </script>
+</body>
+</html>

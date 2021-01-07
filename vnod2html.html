@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      let ulRoot = {
+        tagName: 'ul',
+        props: { class: 'list' },
+        children: [
+          {
+            tagName: 'li',
+            props: { class: 'item' },
+            children: [
+              { tagName: 'li', props: { class: 'item' }, children: ['item1'] },
+              { tagName: 'li', props: { class: 'item' }, children: ['item2'] },
+              { tagName: 'li', props: { class: 'item' }, children: ['item3'] },
+            ],
+          },
+          { tagName: 'li', props: { class: 'item' }, children: ['item2'] },
+          { tagName: 'li', props: { class: 'item' }, children: ['item3'] },
+        ],
+      };
+
+      let el = document.createElement('div');
+      function render(vnode) {
+        let dom = document.createElement(vnode.tagName);
+        setClass(dom, vnode.props.class);
+        if (Array.isArray(vnode.children) && vnode.children.length > 1) {
+          for (let i = 0; i < vnode.children.length; i++) {
+            dom.appendChild(render(vnode.children[i]));
+          }
+        } else {
+          dom.appendChild(document.createTextNode(vnode.children[0]));
+        }
+        return dom;
+      }
+
+      function setClass(el, cls) {
+        el.setAttribute('class', cls);
+      }
+
+      console.log(render(ulRoot));
+    </script>
+  </body>
+</html>

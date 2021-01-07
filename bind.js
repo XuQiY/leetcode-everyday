@@ -18,7 +18,9 @@ Function.prototype.myBind=function (params) {
   const thatFunc = this;
   const args = slice.call(arguments,1)
   const thatArg = arguments[0]
+  console.log(arguments)
   return function () {
+    console.log(arguments)
     return thatFunc.apply(thatArg,[...args,...slice.call(arguments)])
   }
 }

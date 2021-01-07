@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>N皇后问题自动化</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        background: #eee;
+      }
+
+      .area {
+        width: 300px;
+        height: 200px;
+        margin: 20px auto;
+        background: white;
+        position: relative;
+      }
+
+      .inside {
+        height: 200px;
+        position: relative;
+        overflow: auto;
+      }
+
+      .content {
+        height: 5000px;
+      }
+
+      .thing {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        background: #f06d06;
+        color: white;
+        padding: 10px;
+      }
+
+      .count {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <div class="area area-1">
+      <div class="inside inside-1">
+        <div class="content content-2"></div>
+        <div class="thing thing-1">Nothing</div>
+      </div>
+      <div class="count count-1">0</div>
+    </div>
+
+    <div class="area area-2">
+      <div class="inside inside-2">
+        <div class="content content-2"></div>
+        <div class="thing thing-2">Throttled</div>
+      </div>
+      <div class="count count-2">0</div>
+    </div>
+
+    <div class="area area-3">
+      <div class="inside inside-3">
+        <div class="content content-3"></div>
+        <div class="thing thing-3">Debounced</div>
+      </div>
+      <div class="count count-3">0</div>
+    </div>
+
+    <script>
+      function debounce(func, delay) {
+        let time;
+        return function () {
+          const first = !time
+          clearTimeout(time);
+          time = setTimeout(() => {
+            func.apply(this, arguments);
+          }, delay);
+          if(first){
+            func.apply(this, arguments);
+          }
+        };
+      }
+
+      // function throttle(func, delay) {
+      //   let start = new Date();
+      //   let time;
+      //   return function () {
+      //     const now = new Date();
+      //     clearTimeout(time);
+      //     if (now - start > delay) {
+      //       console.log(1);
+      //       func.apply(this, arguments);
+      //       start = now;
+      //     }
+      //     time = setTimeout(() => {
+      //       func.apply(this, arguments);
+      //     }, delay);
+      //   };
+      // }
+      function throttle(func, delay) {
+        let flag;
+        return function () {
+          
+          if (!flag) {
+            func.apply(this, arguments);
+            flag = setTimeout(() => {
+              func.apply(this, arguments);
+              flag = null;
+            }, delay);
+          }
+          
+        };
+      }
+      // 1
+      var inside1 = $('.inside-1');
+      var thing1 = $('.thing-1');
+      var count1 = $('.count-1');
+      inside1.on('scroll', function () {
+        thing1.css('top', inside1[0].scrollTop);
+        count1.html(parseInt(count1.html()) + 1);
+      });
+
+      // 2
+      var inside2 = $('.inside-2');
+      var thing2 = $('.thing-2');
+      var count2 = $('.count-2');
+      inside2.on(
+        'scroll',
+        // _.throttle(function () {
+        //   thing2.css('top', inside2[0].scrollTop);
+        //   count2.html(parseInt(count2.html()) + 1);
+        // }, 150)
+        throttle(function () {
+          thing2.css('top', inside2[0].scrollTop);
+          count2.html(parseInt(count2.html()) + 1);
+        }, 100)
+      );
+
+      // 3
+      var inside3 = $('.inside-3');
+      var thing3 = $('.thing-3');
+      var count3 = $('.count-3');
+      inside3.on(
+        'scroll',
+        // _.debounce(function () {
+        //   thing3.css('top', inside3[0].scrollTop);
+        //   count3.html(parseInt(count3.html()) + 1);
+        // }, 100)
+        debounce(function () {
+          thing3.css('top', inside3[0].scrollTop);
+          count3.html(parseInt(count3.html()) + 1);
+        }, 100)
+      );
+    </script>
+  </body>
+</html>
