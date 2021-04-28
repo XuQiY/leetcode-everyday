@@ -25,43 +25,87 @@ const a = {
   undef: undefined,  // lost
   inf: Infinity,  // forced to 'null'
   re: /.*/,  // lost
+  fun:function(params) {
+    return params+1
+  }
 }
-console.log(a);
-console.log(typeof a.date);  // Date object
-const clone = JSON.parse(JSON.stringify(a));
+
+
+// let deepClone = function (obj) {
+//   let copy
+//   if(obj===null || typeof obj !=='object'){
+//     return obj
+//   }
+//   if(obj instanceof Date){
+//     copy = new Date()
+//     copy.setTime(obj.getTime())
+//     return copy
+//   }
+//   if(obj instanceof Array){
+//     copy = []
+//     obj.forEach((v,i)=>copy[i]=v)
+//     return copy
+//   }
+//   if(obj instanceof RegExp){
+//     return new RegExp(obj)
+//   }
+//   if(obj instanceof Object){
+//     copy = {}
+//     for (const key in obj) {
+//       if (Object.hasOwnProperty.call(obj, key)) {
+//         copy[key] = deepClone(obj[key])
+//       }
+//     }
+//     return copy
+//   }
+// } 
+
+// console.log(a);
+// console.log(typeof a.date);  // Date object
+// const clone = JSON.parse(JSON.stringify(a));
 // const clone = Object.assign({},a)
+
+let deepClone = function (obj) {
+  let copy
+  if(obj===null||typeof obj !==null){
+    return obj
+  }
+  //  RegExp
+  if(obj instanceof RegExp){
+    return new RegExp(obj)
+  }
+
+  if(obj instanceof Array){
+    copy = []
+    obj.forEach((v,i)=>copy[i]=v)
+    return copy
+  }
+
+  if(obj instanceof Date){
+    copy = new Date()
+    copy.setTime(obj.getTime())
+    return copy
+  }
+  
+  if(obj instanceof Object){
+    copy ={}
+    for(let key in obj){
+      if(Object.prototype.hasOwnProperty.call(obj,key)){
+        copy[key]=deepClone(obj[key])
+      }
+    }
+    return copy
+  }
+
+}
+
+const clone = deepClone(a)
+
 // clone.number = 234
 console.log(clone);
-console.log(typeof clone.date);
-
-
-function clone(obj) {
-  if (obj === null || typeof (obj) !== 'object' || 'isActiveClone' in obj)
-      return obj;
-
-  if (obj instanceof Date)
-      var temp = new obj.constructor(); //or new Date(obj);
-  else
-      var temp = obj.constructor();
-
-  for (var key in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, key)) {
-          obj['isActiveClone'] = null;
-          temp[key] = clone(obj[key]);
-          delete obj['isActiveClone'];
-      }
-  }
-  return temp;
+a.fun = function (params) {
+  return params + 2
 }
 
+console.log(clone.re instanceof RegExp);
 
-function cloneObject(obj) {
-  var clone = {};
-  for(var i in obj) {
-      if(obj[i] != null &&  typeof(obj[i])=="object")
-          clone[i] = cloneObject(obj[i]);
-      else
-          clone[i] = obj[i];
-  }
-  return clone;
-}

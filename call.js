@@ -30,3 +30,18 @@ let ob = {}
 say.myapply(ob,[1,2,3])
 
 console.log(ob)
+
+Function.prototype._call = function (obj,...args) {
+  let _fn = Symbol('_fn')
+  obj[_fn] = this
+  obj[_fn](...args)
+  delete obj[_fn]
+}
+
+function say(name){
+  console.log("hello" ,name)
+  this.name = name
+}
+let obj = {name:''}
+say._call(obj,'xu')
+console.log(obj)
